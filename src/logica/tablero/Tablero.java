@@ -85,15 +85,20 @@ public class Tablero {
 	 * @param i entero positivo de la posicion en x (columna) de la celda.
 	 * @param j entero positivo de la posicion en y (fila) de la celda
 	 */
-	public void avisoDeMovimiento(int i, int j) {
+	public void avisoDeMovimiento(int i, int j, Criatura c) {
 		Celda siguienteCelda = this.miGrilla[j][i];
 		Iterator<Entidad> iterator = siguienteCelda.getIterator();
 		Entidad e = iterator.hasNext() ? iterator.next() : null;
 		
 		while(iterator.hasNext()) {
-			e.afectar(miCriatura);
+			e.afectar(c);
 			e = iterator.next();
 		}
+	}
+	
+	public void cambioDeCelda(int posXVieja, int posYVieja, int posXNueva, int posYNueva, Entidad e) {
+		this.miGrilla[posYVieja][posXVieja].removerEntidad(e);
+		this.miGrilla[posYNueva][posXNueva].agregarEntidad(e);
 	}
 
 }

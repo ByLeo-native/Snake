@@ -175,8 +175,7 @@ public class GeneradorDePosicionInicial {
 		int cantAgregado = 0;
 		
 		while(cantAgregado < cant) {
-			Entidad e = c.crecer();
-			this.miTablero.getGrilla()[i][j-(cantAgregado+1)].agregarEntidad(e);
+			c.crecer( i, j);
 			cantAgregado++;
 		}
 	}
@@ -192,8 +191,7 @@ public class GeneradorDePosicionInicial {
 		int cantAgregado = 0;
 		
 		while(cantAgregado < cant) {
-			Entidad e = c.crecer();
-			this.miTablero.getGrilla()[i][j+(cantAgregado+1)].agregarEntidad(e);
+			c.crecer( i, j);
 			cantAgregado++;
 		}
 	}
@@ -209,9 +207,7 @@ public class GeneradorDePosicionInicial {
 		int cantAgregado = 0;
 		
 		while(cantAgregado < cant) {
-			Entidad e = this.miCriatura.crecer();
-			this.miTablero.getGrilla()[i-(1+cantAgregado)][j].agregarEntidad(e);
-			this.miCriatura.crecer();
+			c.crecer( i, j);
 			cantAgregado++;
 		}
 	}
@@ -227,8 +223,7 @@ public class GeneradorDePosicionInicial {
 		int cantAgregado = 0;
 		
 		while(cantAgregado < cant) {
-			Entidad e = c.crecer();
-			this.miTablero.getGrilla()[i+(1+cantAgregado)][j].agregarEntidad(e);
+			c.crecer( i, j);
 			cantAgregado++;
 		}
 	}

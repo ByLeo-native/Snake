@@ -33,6 +33,22 @@ public abstract class EntidadGrafica {
 	public void updateImagen() {
 		this.agregarImagen();
 	}
+
+	public Point getPos(){
+		return pos;
+	}
+	public int getWidthUnaCelda(){
+		return widthOne;
+	}
+	public int getHeightUnaCelda(){
+		return heightOne;
+	}
+	public int getWidth(){
+		return width;
+	}
+	public int getHeight(){
+		return height;
+	}
 	
 	protected void agregarImagen() {
 		ImageIcon img = new ImageIcon(this.ruta);

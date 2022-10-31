@@ -27,7 +27,7 @@ public abstract class Consumible extends Entidad {
 	public void afectar(Criatura c) {
 		Jugador j = c.getJugador();
 		j.setPuntaje( j.getPuntaje() + this.puntaje );
-		c.crecer();
+		c.debeCrecer(bloques);
 	}
 	
 	public boolean esChocable() {

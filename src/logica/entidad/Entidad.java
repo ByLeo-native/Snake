@@ -28,6 +28,14 @@ public abstract class Entidad {
 		return this.posY;
 	}
 	
+	public void setPosX(int x) {
+		this.posX = x;
+	}
+	
+	public void setPosY(int y) {
+		this.posY = y;
+	}
+	
 	public int dimensionX() {
 		return this.dimensionX;
 	}

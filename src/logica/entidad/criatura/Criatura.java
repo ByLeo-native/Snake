@@ -18,6 +18,7 @@ public class Criatura {
 	protected int sentidoHorizontal;
 	protected int sentidoVertical;
 	protected int cantDeIncrementos;
+	protected int velocidad;
 
 	public Criatura (Tablero t) {
 		this.miTablero = t;
@@ -25,6 +26,7 @@ public class Criatura {
 		this.estaViva = true;
 		this.miTablero.posicionarCriatura(3);
 		this.cantDeIncrementos = 0;
+		this.velocidad = 3;
 	}
 	
 	public void morir() {
@@ -35,16 +37,75 @@ public class Criatura {
 		return this.estaViva;
 	}
 	
-	public void crecer() {
-		this.cantDeIncrementos++;
+	public void crecer(int x, int y) {
+		Cuerpo c = new Cuerpo( x, y, miTablero);
+		this.cuerpo.add(c);
+		this.miTablero.getGrilla()[y][x].agregarEntidad(c);
+		this.cantDeIncrementos--;
 	}
 	
 	public void mover() {
-		int posicionEnXDeLaSiguienteCelda = this.cuerpo.get(0).getPosX() + this.sentidoHorizontal;
-		int posicionEnYDeLaSiguienteCelda = this.cuerpo.get(0).getPosY() + this.sentidoVertical;
-		this.miTablero.avisoDeMovimiento(posicionEnXDeLaSiguienteCelda, posicionEnYDeLaSiguienteCelda);
+		Cuerpo cabeza = this.cuerpo.get(0);
+		int posicionActualEnX = cabeza.getEntidadGrafica().getPos().x;
+		int posicionActualEnY = cabeza.getEntidadGrafica().getPos().y;
+		int posicionNuevaEnX = posicionActualEnX + this.sentidoHorizontal*this.velocidad;
+		int posicionNuevaEnY = posicionActualEnY + this.sentidoVertical*this.velocidad;
+		int celdaActualEnX = cabeza.getPosX();
+		int celdaActualEnY = cabeza.getPosY();
+		int celdaNuevaEnX = Math.floorDiv(posicionNuevaEnX, cabeza.getEntidadGrafica().getWidthUnaCelda());//Redondeo hacia abajo
+		int celdaNuevaEnY = Math.floorDiv(posicionNuevaEnY, cabeza.getEntidadGrafica().getHeightUnaCelda());//Redondeo hacia abajo
 		
+		if(celdaActualEnX != celdaNuevaEnX || celdaActualEnY != celdaNuevaEnY) {
+			this.miTablero.avisoDeMovimiento(celdaNuevaEnX, celdaNuevaEnY, this);
+		}
+
+		this.avanzar();
+	}
+	
+	protected void avanzar() {
+		Iterator<Cuerpo> it = this.cuerpo.iterator();
+		Cuerpo cuerpoActual = it.hasNext() ? it.next() : null;
+		int celdaActualEnX = cuerpoActual.getPosX();
+		int celdaActualEnY = cuerpoActual.getPosY();
+		int posicionActualEnX = cuerpoActual.getEntidadGrafica().getPos().x;
+		int posicionActualEnY = cuerpoActual.getEntidadGrafica().getPos().y;
+		int posicionNuevaEnX = posicionActualEnX + this.sentidoHorizontal*this.velocidad;
+		int posicionNuevaEnY = posicionActualEnY + this.sentidoVertical*this.velocidad;
 		
+		while(it.hasNext()) {
+			celdaActualEnX = cuerpoActual.getPosX();
+			celdaActualEnY = cuerpoActual.getPosY();
+			
+			cuerpoActual.setPosX(Math.floorDiv(posicionNuevaEnX, cuerpoActual.getEntidadGrafica().getWidthUnaCelda()));
+			cuerpoActual.setPosY(Math.floorDiv(posicionNuevaEnY, cuerpoActual.getEntidadGrafica().getHeightUnaCelda()));
+			
+			cuerpoActual.getEntidadGrafica().cambiarPos(posicionNuevaEnX, posicionNuevaEnY);
+			
+			int celdaViejaEnX = celdaActualEnX;
+			int celdaViejaEnY = celdaActualEnY;
+			celdaActualEnX = cuerpoActual.getPosX();
+			celdaActualEnY = cuerpoActual.getPosY();
+			
+			if(celdaViejaEnX != celdaActualEnX || celdaViejaEnY != celdaActualEnY) {
+				this.miTablero.cambioDeCelda(celdaViejaEnX, celdaViejaEnY, celdaActualEnX, celdaActualEnY, cuerpoActual);
+			}
+			
+			cuerpoActual = it.next();
+			//Hago que la posicion de un cuerpo sea la posicion del cuerpo anterior
+			posicionNuevaEnX = posicionActualEnX;
+			posicionNuevaEnY = posicionActualEnY;
+			posicionActualEnX = cuerpoActual.getEntidadGrafica().getPos().x;
+			posicionActualEnY = cuerpoActual.getEntidadGrafica().getPos().y;
+		}
+		
+		if(this.cantDeIncrementos>0) {
+			this.crecer(posicionNuevaEnX, posicionNuevaEnY);
+			this.cantDeIncrementos--;
+		}
+	}
+	
+	public void debeCrecer(int cant) {
+		this.cantDeIncrementos += cant;
 	}
 	
 	public boolean doblar(int sH, int sV) {
@@ -109,12 +170,4 @@ public class Criatura {
 		return puedeDoblarHorizontal || puedeDoblarVertical;
 	}
 	
-	protected void avanzar() {
-		Iterator<Cuerpo> iterator = this.cuerpo.iterator();
-		Cuerpo c = iterator.hasNext() ? iterator.next() : null;
-		while(iterator.hasNext()) {
-			
-		}
-	}
-
 }
