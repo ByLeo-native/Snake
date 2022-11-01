@@ -72,46 +72,82 @@ public class Criatura {
 	
 	protected void avanzar() {
 		Iterator<Cuerpo> it = this.cuerpo.iterator();
-		Cuerpo cuerpoActual = it.hasNext() ? it.next() : null;
-		int celdaActualEnX = cuerpoActual.getPosX();
-		int celdaActualEnY = cuerpoActual.getPosY();
-		int posicionActualEnX = cuerpoActual.getEntidadGrafica().getPos().x;
-		int posicionActualEnY = cuerpoActual.getEntidadGrafica().getPos().y;
-		int posicionNuevaEnX = posicionActualEnX + this.sentidoHorizontal*this.velocidad;
-		int posicionNuevaEnY = posicionActualEnY + this.sentidoVertical*this.velocidad;
-		System.out.println("PosNueva: "+posicionNuevaEnX+", "+posicionNuevaEnY);
+		Direccion direccionDelAnterior = this.cuerpo.get(0).getDireccion();
+		Cuerpo cuerpoActual = null;
 		while(it.hasNext()) {
-			celdaActualEnX = cuerpoActual.getPosX();
-			celdaActualEnY = cuerpoActual.getPosY();
-			
-			cuerpoActual.setPosX(Math.floorDiv(posicionNuevaEnX, cuerpoActual.getEntidadGrafica().getWidthUnaCelda()));
-			cuerpoActual.setPosY(Math.floorDiv(posicionNuevaEnY, cuerpoActual.getEntidadGrafica().getHeightUnaCelda()));
-			
-			cuerpoActual.getEntidadGrafica().cambiarPos(posicionNuevaEnX, posicionNuevaEnY);
-			
-			int celdaViejaEnX = celdaActualEnX;
-			int celdaViejaEnY = celdaActualEnY;
-			celdaActualEnX = cuerpoActual.getPosX();
-			celdaActualEnY = cuerpoActual.getPosY();
-			
-			if(celdaViejaEnX != celdaActualEnX || celdaViejaEnY != celdaActualEnY) {
-				this.miTablero.cambioDeCelda(celdaViejaEnX, celdaViejaEnY, celdaActualEnX, celdaActualEnY, cuerpoActual);
-			}
-			cuerpoActual.getEntidadGrafica().getLabel().repaint();
 			cuerpoActual = it.next();
-			//Hago que la posicion de un cuerpo sea la posicion del cuerpo anterior
-			posicionNuevaEnX = posicionActualEnX;
-			posicionNuevaEnY = posicionActualEnY;
-			posicionActualEnX = cuerpoActual.getEntidadGrafica().getPos().x;
-			posicionActualEnY = cuerpoActual.getEntidadGrafica().getPos().y;
+			Direccion direccionDelCuerpoActual = cuerpoActual.getDireccion();
+			int posicionActualEnX = cuerpoActual.getEntidadGrafica().getPos().x;
+			int posicionActualEnY = cuerpoActual.getEntidadGrafica().getPos().y;
+			int posicionNuevaEnX = posicionActualEnX + direccionDelCuerpoActual.getDireccionEnX()*this.velocidad;
+			int posicionNuevaEnY = posicionActualEnY + direccionDelCuerpoActual.getDireccionEnY()*this.velocidad;
+			
+			int celdaActualEnX = cuerpoActual.getPosX();
+			int celdaActualEnY = cuerpoActual.getPosY();
+			
+			cuerpoActual.setPosX(Math.floorDiv(posicionNuevaEnX, cuerpoActual.getEntidadGrafica().getWidthUnaCelda())); //Establezco la celda horizontal
+			cuerpoActual.setPosY(Math.floorDiv(posicionNuevaEnY, cuerpoActual.getEntidadGrafica().getHeightUnaCelda())); //Establezco la celda vertical
+			cuerpoActual.getEntidadGrafica().cambiarPos(posicionNuevaEnX, posicionNuevaEnY); //Cambio la posicion del label
+			
+			this.cambioDeCelda(celdaActualEnX, celdaActualEnY, cuerpoActual);
+			
+			cuerpoActual.setDireccion(direccionDelAnterior);
 		}
 		
-		if(this.cantDeIncrementos>0) {
-			this.crecer(posicionNuevaEnX, posicionNuevaEnY);
-			this.cantDeIncrementos--;
-		}
+		
+//		Iterator<Cuerpo> it = this.cuerpo.iterator();
+//		Cuerpo cuerpoActual = it.hasNext() ? it.next() : null;
+//		Direccion direccionDelCuerpoActual = cuerpoActual.getDireccion();
+//		Direccion direccionDelAnterior = direccionDelCuerpoActual; // Como es la cabeza primero, no hay anterior.
+//		int celdaActualEnX = cuerpoActual.getPosX();
+//		int celdaActualEnY = cuerpoActual.getPosY();
+//		int posicionActualEnX = cuerpoActual.getEntidadGrafica().getPos().x;
+//		int posicionActualEnY = cuerpoActual.getEntidadGrafica().getPos().y;
+//		int posicionNuevaEnX = posicionActualEnX + direccionDelCuerpoActual.getDireccionEnX()*this.velocidad;
+//		int posicionNuevaEnY = posicionActualEnY + direccionDelCuerpoActual.getDireccionEnY()*this.velocidad;
+//		System.out.println("PosNueva: "+posicionNuevaEnX+", "+posicionNuevaEnY);
+//		while(it.hasNext()) {
+//			celdaActualEnX = cuerpoActual.getPosX();
+//			celdaActualEnY = cuerpoActual.getPosY();
+//			//Cambio de posicion
+//			cuerpoActual.setPosX(Math.floorDiv(posicionNuevaEnX, cuerpoActual.getEntidadGrafica().getWidthUnaCelda())); //Establezco la celda horizontal
+//			cuerpoActual.setPosY(Math.floorDiv(posicionNuevaEnY, cuerpoActual.getEntidadGrafica().getHeightUnaCelda())); //Establezco la celda vertical
+//			cuerpoActual.getEntidadGrafica().cambiarPos(posicionNuevaEnX, posicionNuevaEnY); //Cambio la posicion del label
+//			//Verifico cambio de celda
+//			int celdaViejaEnX = celdaActualEnX;
+//			int celdaViejaEnY = celdaActualEnY;
+//			celdaActualEnX = cuerpoActual.getPosX();
+//			celdaActualEnY = cuerpoActual.getPosY();
+//			
+//			if(celdaViejaEnX != celdaActualEnX || celdaViejaEnY != celdaActualEnY) { //Si hubo un cambio de celda
+//				this.miTablero.cambioDeCelda(celdaViejaEnX, celdaViejaEnY, celdaActualEnX, celdaActualEnY, cuerpoActual); //Pasar entidad a otra celda
+//			}
+//			
+//			cuerpoActual.getEntidadGrafica().getLabel().repaint();
+//			cuerpoActual = it.next();
+//			//Hago que la posicion de un cuerpo sea la posicion del cuerpo anterior
+//			
+//			posicionActualEnX = cuerpoActual.getEntidadGrafica().getPos().x;
+//			posicionActualEnY = cuerpoActual.getEntidadGrafica().getPos().y;
+//			posicionNuevaEnX = posicionActualEnX;
+//			posicionNuevaEnY = posicionActualEnY;
+//		}
+//		
+//		if(this.cantDeIncrementos>0) {
+//			this.crecer(posicionNuevaEnX, posicionNuevaEnY);
+//			this.cantDeIncrementos--;
+//		}
 	}
 	
+	private void cambioDeCelda(int celdaViejaEnX, int celdaViejaEnY, Cuerpo cuerpo) {
+		int celdaActualEnX = cuerpo.getPosX();
+		int celdaActualEnY = cuerpo.getPosY();
+		
+		if(celdaViejaEnX != celdaActualEnX || celdaViejaEnY != celdaActualEnY) { //Si hubo un cambio de celda
+			this.miTablero.cambioDeCelda(celdaViejaEnX, celdaViejaEnY, celdaActualEnX, celdaActualEnY, cuerpo); //Pasar entidad a otra celda
+		}
+	}
+
 	public void debeCrecer(int cant) {
 		this.cantDeIncrementos += cant;
 	}

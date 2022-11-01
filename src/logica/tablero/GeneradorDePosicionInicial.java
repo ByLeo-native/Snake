@@ -50,6 +50,7 @@ public class GeneradorDePosicionInicial {
 					CabezaSnake e = new CabezaSnake(i, j, this.miTablero);
 					this.miCriatura.setCabeza(e);
 					this.miTablero.getGrilla()[j][i].agregarEntidad(e);
+					e.setDireccion(this.miCriatura.getCuerpoEnPosicion(1).getDireccion());
 					System.out.println("Cabeza en ( "+i+", "+j+")");
 				}
 			}
