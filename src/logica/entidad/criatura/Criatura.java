@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import logica.direccion.Direccion;
 import logica.entidad.obstaculo.CabezaSnake;
 import logica.entidad.obstaculo.Cuerpo;
 import logica.jugador.Jugador;
@@ -24,12 +25,11 @@ public class Criatura {
 		this.miTablero = t;
 		this.cuerpo = new ArrayList<Cuerpo>();
 		this.estaViva = true;
-		this.sentidoHorizontal = 1;
-		this.sentidoVertical = 0;
 		this.velocidad = 3;
 		this.miTablero.posicionarCriatura( this, 3);
 		this.cantDeIncrementos = 0;
-		
+		this.sentidoHorizontal = this.getCuerpoEnPosicion(0).getDireccion().getDireccionEnX();
+		this.sentidoVertical = this.getCuerpoEnPosicion(0).getDireccion().getDireccionEnY();
 	}
 	
 	public void morir() {
@@ -116,12 +116,11 @@ public class Criatura {
 		this.cantDeIncrementos += cant;
 	}
 	
-	public boolean doblar(int sH, int sV) {
+	public boolean doblar(Direccion d) {
 		boolean pudoDoblar = false;
 		
-		if(this.puedeDoblar(sH, sV)) {
-			this.sentidoHorizontal = sH;
-			this.sentidoVertical = sV;
+		if(this.puedeDoblar(d)) {
+			this.getCuerpoEnPosicion(0).setDireccion(d);
 			pudoDoblar = true;
 		}
 		
@@ -160,20 +159,18 @@ public class Criatura {
 		return c;
 	}
 	
-	public void setDireccion(int sH, int sV) {
-		if(this.puedeDoblar(sH, sV)) {
-			this.sentidoHorizontal = sH;
-			this.sentidoVertical = sV;
-		}
+	public int size() {
+		return this.cuerpo.size();
 	}
 	
 	protected boolean tieneQueCrecer() {
 		return this.cantDeIncrementos > 0;
 	}
 	
-	protected boolean puedeDoblar(int sH, int sV) {
-		boolean puedeDoblarHorizontal = (this.sentidoHorizontal == 0 && this.sentidoVertical != 0 && sH != 0 && sV == 0);
-		boolean puedeDoblarVertical = (this.sentidoHorizontal != 0 && this.sentidoVertical == 0 && sH == 0 && sV != 0);
+	protected boolean puedeDoblar(Direccion d) {
+		Direccion direccionDeLaCabeza = this.cuerpo.get(0).getDireccion();
+		boolean puedeDoblarHorizontal = (direccionDeLaCabeza == Direccion.ARRIBA || direccionDeLaCabeza == Direccion.ABAJO) && ( d == Direccion.IZQUIERDA || d == Direccion.DERECHA);
+		boolean puedeDoblarVertical = (direccionDeLaCabeza == Direccion.IZQUIERDA || direccionDeLaCabeza == Direccion.DERECHA) && ( d == Direccion.ARRIBA || d == Direccion.ABAJO);
 		
 		return puedeDoblarHorizontal || puedeDoblarVertical;
 	}

@@ -2,7 +2,7 @@ package logica.hilos;
 
 import logica.juego.Juego;
 
-public class HiloMovimiento extends Thread {
+public class HiloMovimiento implements Runnable {
 	
 	protected Juego juego;
 	protected boolean execute;
@@ -18,7 +18,7 @@ public class HiloMovimiento extends Thread {
 			this.juego.mover();
 			this.juego.getGui().repaint();
 			try {
-				Thread.sleep(180);
+				Thread.sleep(1000/30);
 			} catch (InterruptedException e) {e.printStackTrace();}
 			this.juego.permitirDoblar();
 		}

@@ -40,6 +40,7 @@ public class PanelJuego extends JPanel {
 			this.miJuego = new Juego(this);
 			panelLateral = new PanelLateral(AnchoVentana,AltoVentana,this);
 			this.add(panelLateral);
+			this.miJuego.iniciarPartida();
 		}
 	}
 	public void cambiar(JPanel panel){

@@ -1,6 +1,7 @@
 package logica.jugador;
 
 import logica.auxiliar.Hora;
+import logica.direccion.Direccion;
 import logica.entidad.criatura.Criatura;
 import logica.juego.Juego;
 
@@ -55,19 +56,19 @@ public class Jugador {
 	}
 	
 	protected void izquierda() {
-		this.miCriatura.doblar(-1, 0);
+		this.miCriatura.doblar(Direccion.IZQUIERDA);
 	}
 
 	protected void abajo() {
-		this.miCriatura.doblar(0, 1);
+		this.miCriatura.doblar(Direccion.ABAJO);
 	}
 
 	protected void derecha() {
-		this.miCriatura.doblar(1, 0);
+		this.miCriatura.doblar(Direccion.DERECHA);
 	}
 
 	protected void arriba() {
-		this.miCriatura.doblar(0, -1);
+		this.miCriatura.doblar(Direccion.ARRIBA);
 	}
 
 }

@@ -14,8 +14,9 @@ public class Juego {
 	protected int nivelActual;
 	protected PanelJuego pnJuego;
 	protected Contador contador;
-	protected HiloMovimiento hilo;
+	protected HiloMovimiento hiloMovimiento;
 	protected boolean yaDoblo;
+	protected Thread hilo;
 	
 	public Juego(PanelJuego panelJuego) {
 		this.pnJuego = panelJuego;
@@ -26,10 +27,11 @@ public class Juego {
 	}
 	
 	public void iniciarPartida() {
-		this.contador = new Contador(this);
+		//this.contador = new Contador(this);
 		
-		hilo = new HiloMovimiento(this);
-		hilo.run();
+		this.hiloMovimiento = new HiloMovimiento(this);
+		this.hilo = new Thread(this.hiloMovimiento);
+		this.hilo.start();
 	}
 	
 	public void finalizarPartida() {

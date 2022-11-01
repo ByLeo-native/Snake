@@ -1,9 +1,8 @@
 package logica.tablero;
 
-import logica.entidad.Entidad;
+import logica.direccion.Direccion;
 import logica.entidad.criatura.Criatura;
 import logica.entidad.obstaculo.CabezaSnake;
-import logica.entidad.obstaculo.Cuerpo;
 
 public class GeneradorDePosicionInicial {
 	
@@ -31,20 +30,20 @@ public class GeneradorDePosicionInicial {
 			if( !this.miTablero.miGrilla[j][i].getPrimeraEntidad().esChocable()) {
 				if( this.noHayParedAIzquierda(i, j, cantidad -1) ) {
 					this.agregarCuerpoAIzquierda(i, j, cantidad-1, this.miCriatura);
+					this.definirDireccion(Direccion.DERECHA, miCriatura);
 					sePosiciono = true;
-					this.miCriatura.setDireccion(1, 0); //Direccion hacia la derecha
 				} else if( this.noHayParedArriba(i, j, cantidad-1)) {
 					this.agregarCuerpoArriba(i, j, cantidad-1, this.miCriatura);
+					this.definirDireccion(Direccion.ABAJO, miCriatura);
 					sePosiciono = true;
-					this.miCriatura.setDireccion(0, 1); //Direccion hacia abajo
 				} else if( this.noHayParedADerecha(i, j, cantidad-1)) {
 					this.agregarCuerpoADerecha(i, j, cantidad-1, this.miCriatura);
+					this.definirDireccion(Direccion.IZQUIERDA, miCriatura);
 					sePosiciono = true;
-					this.miCriatura.setDireccion(-1, 0); //Direccion hacia la izquierda
 				} else if( this.noHayParedAbajo(i, j, cantidad-1)) {
 					this.agregarCuerpoAbajo(i, j, cantidad-1, this.miCriatura);
+					this.definirDireccion(Direccion.ARRIBA, miCriatura);
 					sePosiciono = true;
-					this.miCriatura.setDireccion(0, -1); //Direccion hacia arriba
 				}
 				
 				if(sePosiciono) {
@@ -226,6 +225,12 @@ public class GeneradorDePosicionInicial {
 		while(cantAgregado < cant) {
 			c.crecer( i, j+(cantAgregado+1));
 			cantAgregado++;
+		}
+	}
+	
+	protected void definirDireccion(Direccion d, Criatura c) {
+		for(int i=0; i< c.size(); i++) {
+			c.getCuerpoEnPosicion(i).setDireccion(d);
 		}
 	}
 }

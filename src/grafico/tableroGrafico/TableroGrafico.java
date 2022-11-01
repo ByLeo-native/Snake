@@ -25,7 +25,7 @@ public class TableroGrafico extends JPanel {
 		this.alto = this.miTablero.getNivel().getJuego().getMiInterfaz().getAlto();
 		this.ancho = this.alto;
 		this.setBounds( 0, 0, this.ancho, this.alto);
-		
+		this.addKeyListener(new OyenteTeclado());
 
 		this.pintarTablero();
 		this.repaint();
@@ -71,10 +71,10 @@ public class TableroGrafico extends JPanel {
 			int tecla = 0;
 	        switch (presiona) 
 	        {
-	      		case KeyEvent.VK_UP:{tecla = 2;}break;
-	            case KeyEvent.VK_LEFT: {tecla = -1;}break;
-	            case KeyEvent.VK_RIGHT: {tecla = 1;}break;
-	            case KeyEvent.VK_DOWN: {tecla = -2;}break;
+	      		case KeyEvent.VK_UP:{tecla = 2; System.out.println("Arriba");}break;
+	            case KeyEvent.VK_LEFT: {tecla = -1; System.out.println("Izquierda");}break;
+	            case KeyEvent.VK_RIGHT: {tecla = 1; System.out.println("Derecha");}break;
+	            case KeyEvent.VK_DOWN: {tecla = -2; System.out.println("Abajo");}break;
 	        }
 	        miTablero.getNivel().getJuego().doblar(tecla);
 		}
