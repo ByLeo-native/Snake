@@ -1,7 +1,9 @@
 package grafico.entidadGrafica;
 
+import java.awt.Image;
 import java.awt.Point;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -15,11 +17,14 @@ public abstract class EntidadGrafica {
 	protected final int height;
 	protected Point pos;
 	
-	public EntidadGrafica(int x, int y, int ancho, int alto) {
+	public EntidadGrafica(int x, int y, int ancho, int alto, String ruta) {
 		this.label = new JLabel();
 		this.width = widthOne*ancho;
 		this.height = heightOne*alto;
 		this.pos = new Point(x*widthOne, y*heightOne);
+		this.label.setBounds(this.pos.x, this.pos.y, this.width, this.height);
+		this.ruta = ruta;
+		this.agregarImagen();
 	}
 	
 	public JLabel getLabel() {
@@ -51,8 +56,12 @@ public abstract class EntidadGrafica {
 	}
 	
 	protected void agregarImagen() {
-		ImageIcon img = new ImageIcon(this.ruta);
-		this.label.setIcon(img);
+		ImageIcon imgIcon = new ImageIcon(this.ruta);
+        Image imgEscalada = imgIcon.getImage().getScaledInstance(this.width,
+                this.height, Image.SCALE_SMOOTH);
+        Icon iconoEscalado = new ImageIcon(imgEscalada);
+        this.label.setIcon(iconoEscalado);
+		
 	}
 	
 	/**
@@ -62,7 +71,6 @@ public abstract class EntidadGrafica {
 	 */
 	public void cambiarPos(int newX, int newY){
 		pos.setLocation(newX, newY);
-		System.out.println("( "+newX+", "+newY+")");
 		getLabel().setBounds(pos.x, pos.y, width, height);
 	}
 }

@@ -13,30 +13,38 @@ import javax.swing.SwingConstants;
 
 public class PanelLateral extends JPanel{
 	protected static final long serialVersionUID = 1L;
-	protected JLabel puntaje, tiempo, hordas, levelProgress, levelProgressText, levelText, numberLevel;
+	protected JLabel puntaje, tiempo, levelProgress, levelProgressText, levelText, numberLevel;
 	protected final String dir = "src/Sprites/";
 	protected ImageIcon[] cantHordas, progress, numLevel;
 	protected int hordaActual=0, actualLevel=0;
 	protected PanelJuego miPanelJuego;
-	protected JLabel lblTiempoDeJuego, lblTimer;
+	protected JLabel lblTiempoDeJuego, lblTimer, lblPuntuacion, lblScore;
 	
 	public PanelLateral (int AnchoVentana, int AltoVentana, PanelJuego g){
-		
+		super();
 		this.setBackground(Color.GRAY);
-		this.setBounds(885, 232, 291, 104);
 		this.setLayout(null);
 		
 		miPanelJuego=g;
-		this.setBounds( 11*AltoVentana/12, 0, AltoVentana/12, AnchoVentana-10);
+		this.setBounds( 9*AnchoVentana/12, 0, 3*AnchoVentana/12, AltoVentana);
 		
 		this.armarPanel();
 		this.backButton();
 
-		add(puntaje);
-		add(tiempo);
 	}
 	
 	protected void armarPanel() {
+		lblPuntuacion = new JLabel("Puntuaci\u00F3n:");
+		lblPuntuacion.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblPuntuacion.setBounds(10, 10, 127, 32);
+		this.add(lblPuntuacion);
+
+		lblScore = new JLabel("000000");
+		lblScore.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblScore.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblScore.setBounds(156, 10, 127, 32);
+		this.add(lblScore);
+		
 		lblTiempoDeJuego = new JLabel("Tiempo de juego:");
 		lblTiempoDeJuego.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblTiempoDeJuego.setBounds(10, 62, 159, 32);

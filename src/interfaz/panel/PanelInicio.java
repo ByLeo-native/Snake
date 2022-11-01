@@ -15,18 +15,21 @@ public class PanelInicio extends JPanel{
 	private JButton[] botones;
 	private JLabel fondo;
 	private GUI ventana;
-	protected final String dir = "src/Sprites/";
+	protected final String dir = System.getProperty("user.dir");
 	
 	public PanelInicio(GUI v){
 		ventana=v;
 		setLayout(null);
 		setBounds(0,0,v.getAncho()-15,v.getAlto()-40);
 		
-		fondo = new JLabel(new ImageIcon(dir+"IconosBotones/FondoInicio.png"));
-		fondo.setBounds(0,0,v.getAncho()-15,v.getAlto()-40);
+		fondo = new JLabel(new ImageIcon(dir+"/src/Assets/pasto.jpg"));
+		fondo.setBounds(0,0, v.getAncho(),v.getAlto());
+		fondo.setVisible(true);
+		
 		armarBotones();
 		add(fondo);
 	}
+	
 	private void armarBotones(){
 		String[] command = {"Jugar","Informacion","Salir"};
 		botones = new JButton[command.length];
@@ -38,11 +41,12 @@ public class PanelInicio extends JPanel{
 			botones[i].setBorderPainted(false);
 			botones[i].setContentAreaFilled(false);
 			botones[i].setActionCommand(command[i]);
-			botones[i].setBounds(200,(i+1)*70+45,300,70);
+			botones[i].setBounds(200,(i+1)*100+45,300,150);
 			botones[i].setFocusable(false);
 			botones[i].addActionListener(oyente);
-			botones[i].setIcon(new ImageIcon(dir+"IconosBotones/BotonInicio"+command[i]+".png"));
-			botones[i].setRolloverIcon(new ImageIcon(dir+"IconosBotones/BotonInicio"+command[i]+"Entered.png"));
+			System.out.println(dir+"/src/Assets/botones/"+command[i]+".gif");
+			botones[i].setIcon(new ImageIcon(dir+"/src/Assets/botones/"+command[i]+".gif"));
+			//botones[i].setRolloverIcon(new ImageIcon(dir+"IconosBotones/BotonInicio"+command[i]+"Entered.png"));
 			add(botones[i]);
 		}
 	}
@@ -72,6 +76,7 @@ public class PanelInicio extends JPanel{
 					g.ejecutar();
 					ventana.cambiarJuego(g);
 					cambiar(g);
+					//g.iniciar();
 					break;
 				}
 				case("Continuar"):{

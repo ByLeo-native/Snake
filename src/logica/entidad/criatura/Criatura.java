@@ -24,9 +24,12 @@ public class Criatura {
 		this.miTablero = t;
 		this.cuerpo = new ArrayList<Cuerpo>();
 		this.estaViva = true;
-		this.miTablero.posicionarCriatura(3);
-		this.cantDeIncrementos = 0;
+		this.sentidoHorizontal = 1;
+		this.sentidoVertical = 0;
 		this.velocidad = 3;
+		this.miTablero.posicionarCriatura( this, 3);
+		this.cantDeIncrementos = 0;
+		
 	}
 	
 	public void morir() {
@@ -37,6 +40,11 @@ public class Criatura {
 		return this.estaViva;
 	}
 	
+	/**
+	 * Agrega un cuerpo en la celda asignada.
+	 * @param x entero correspondiente a la columna de la celda.
+	 * @param y entero correspondiente a la fila de la celda.
+	 */
 	public void crecer(int x, int y) {
 		Cuerpo c = new Cuerpo( x, y, miTablero);
 		this.cuerpo.add(c);
@@ -71,7 +79,7 @@ public class Criatura {
 		int posicionActualEnY = cuerpoActual.getEntidadGrafica().getPos().y;
 		int posicionNuevaEnX = posicionActualEnX + this.sentidoHorizontal*this.velocidad;
 		int posicionNuevaEnY = posicionActualEnY + this.sentidoVertical*this.velocidad;
-		
+		System.out.println("PosNueva: "+posicionNuevaEnX+", "+posicionNuevaEnY);
 		while(it.hasNext()) {
 			celdaActualEnX = cuerpoActual.getPosX();
 			celdaActualEnY = cuerpoActual.getPosY();
@@ -89,7 +97,7 @@ public class Criatura {
 			if(celdaViejaEnX != celdaActualEnX || celdaViejaEnY != celdaActualEnY) {
 				this.miTablero.cambioDeCelda(celdaViejaEnX, celdaViejaEnY, celdaActualEnX, celdaActualEnY, cuerpoActual);
 			}
-			
+			cuerpoActual.getEntidadGrafica().getLabel().repaint();
 			cuerpoActual = it.next();
 			//Hago que la posicion de un cuerpo sea la posicion del cuerpo anterior
 			posicionNuevaEnX = posicionActualEnX;

@@ -2,13 +2,13 @@ package grafico.tableroGrafico;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Iterator;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import grafico.entidadGrafica.EntidadGrafica;
 import logica.celda.Celda;
-import logica.entidad.Entidad;
 import logica.tablero.Tablero;
 
 public class TableroGrafico extends JPanel {
@@ -16,12 +16,25 @@ public class TableroGrafico extends JPanel {
 	protected Tablero miTablero;
 	protected int ancho;
 	protected int alto;
+	protected JLabel fondo;
+	protected final String dir = System.getProperty("user.dir");
 	
 	public TableroGrafico(Tablero t) {
 		this.miTablero = t;
 		this.setLayout(null);
-		this.ancho = this.miTablero.getNivel().getJuego().getMiInterfaz().getAncho();
 		this.alto = this.miTablero.getNivel().getJuego().getMiInterfaz().getAlto();
+		this.ancho = this.alto;
+		this.setBounds( 0, 0, this.ancho, this.alto);
+		
+
+		this.pintarTablero();
+		this.repaint();
+		
+		System.out.println("Ancho: "+this.ancho+", Alto: "+this.alto);
+		this.fondo = new JLabel(new ImageIcon(dir+"/src/Assets/pasto.jpg"));
+		this.fondo.setBounds( 0, 0, this.ancho, this.alto);
+		this.add(fondo);
+		
 	}
 	
 	public void pintarTablero() {

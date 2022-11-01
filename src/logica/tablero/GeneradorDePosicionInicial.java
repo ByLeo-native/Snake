@@ -28,7 +28,7 @@ public class GeneradorDePosicionInicial {
 			int i = (int)(Math.random()* (this.cantDeColumnas-1));
 			int j = (int)(Math.random()* (this.cantDeFilas-1));
 			
-			if( !this.miTablero.miGrilla[i][j].getPrimeraEntidad().esChocable()) {
+			if( !this.miTablero.miGrilla[j][i].getPrimeraEntidad().esChocable()) {
 				if( this.noHayParedAIzquierda(i, j, cantidad -1) ) {
 					this.agregarCuerpoAIzquierda(i, j, cantidad-1, this.miCriatura);
 					sePosiciono = true;
@@ -48,9 +48,10 @@ public class GeneradorDePosicionInicial {
 				}
 				
 				if(sePosiciono) {
-					CabezaSnake e = new CabezaSnake(j, i, this.miTablero);
+					CabezaSnake e = new CabezaSnake(i, j, this.miTablero);
 					this.miCriatura.setCabeza(e);
-					this.miTablero.getGrilla()[i][j].agregarEntidad(e);
+					this.miTablero.getGrilla()[j][i].agregarEntidad(e);
+					System.out.println("Cabeza en ( "+i+", "+j+")");
 				}
 			}
 		}
@@ -70,7 +71,7 @@ public class GeneradorDePosicionInicial {
 		int cantExaminado = 0;
 		
 		while(!seCumple && !seEncontroConUnaPared) {
-			if(!this.miTablero.getGrilla()[i][j - (cantExaminado+1)].getPrimeraEntidad().esChocable()) {
+			if(!this.miTablero.getGrilla()[j][i - (cantExaminado+1)].getPrimeraEntidad().esChocable()) {
 				cantExaminado++;
 			} else {
 				seEncontroConUnaPared = true;
@@ -97,7 +98,7 @@ public class GeneradorDePosicionInicial {
 		int cantExaminado = 0;
 		
 		while(!seCumple && !seEncontroConUnaPared) {
-			if(!this.miTablero.getGrilla()[i][j + (cantExaminado+1)].getPrimeraEntidad().esChocable()) {
+			if(!this.miTablero.getGrilla()[j][i + (cantExaminado+1)].getPrimeraEntidad().esChocable()) {
 				cantExaminado++;
 			} else {
 				seEncontroConUnaPared = true;
@@ -124,7 +125,7 @@ public class GeneradorDePosicionInicial {
 		int cantExaminado = 0;
 		
 		while(!seCumple && !seEncontroConUnaPared) {
-			if(!this.miTablero.getGrilla()[i - (cantExaminado+1)][j].getPrimeraEntidad().esChocable()) {
+			if(!this.miTablero.getGrilla()[j - (cantExaminado+1)][i].getPrimeraEntidad().esChocable()) {
 				cantExaminado++;
 			} else {
 				seEncontroConUnaPared = true;
@@ -151,7 +152,7 @@ public class GeneradorDePosicionInicial {
 		int cantExaminado = 0;
 		
 		while(!seCumple && !seEncontroConUnaPared) {
-			if(!this.miTablero.getGrilla()[i + (cantExaminado+1)][j].getPrimeraEntidad().esChocable()) {
+			if(!this.miTablero.getGrilla()[j + (cantExaminado+1)][i].getPrimeraEntidad().esChocable()) {
 				cantExaminado++;
 			} else {
 				seEncontroConUnaPared = true;
@@ -175,7 +176,7 @@ public class GeneradorDePosicionInicial {
 		int cantAgregado = 0;
 		
 		while(cantAgregado < cant) {
-			c.crecer( i, j);
+			c.crecer( i - (cantAgregado+1), j);
 			cantAgregado++;
 		}
 	}
@@ -191,7 +192,7 @@ public class GeneradorDePosicionInicial {
 		int cantAgregado = 0;
 		
 		while(cantAgregado < cant) {
-			c.crecer( i, j);
+			c.crecer( i + (cantAgregado+1), j);
 			cantAgregado++;
 		}
 	}
@@ -207,7 +208,7 @@ public class GeneradorDePosicionInicial {
 		int cantAgregado = 0;
 		
 		while(cantAgregado < cant) {
-			c.crecer( i, j);
+			c.crecer( i, j -(cantAgregado+1));
 			cantAgregado++;
 		}
 	}
@@ -223,7 +224,7 @@ public class GeneradorDePosicionInicial {
 		int cantAgregado = 0;
 		
 		while(cantAgregado < cant) {
-			c.crecer( i, j);
+			c.crecer( i, j+(cantAgregado+1));
 			cantAgregado++;
 		}
 	}

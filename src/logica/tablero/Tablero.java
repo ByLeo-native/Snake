@@ -20,7 +20,6 @@ public class Tablero {
 
 	public Tablero(Nivel n) {
 		this.miNivel = n;
-		
 		this.miGrilla = n.generarNivel();
 		this.hayComida = false;
 		this.hayPowerUp = false;
@@ -37,12 +36,16 @@ public class Tablero {
 		return this.miCriatura;
 	}
 	
+	public TableroGrafico getTableroGrafico() {
+		return this.map;
+	}
+	
 	public Celda[][] getGrilla() {
 		return this.miGrilla;
 	}
 	
-	public void posicionarCriatura(int cant) {
-		GeneradorDePosicionInicial generador = new GeneradorDePosicionInicial(this, this.miCriatura, cant);
+	public void posicionarCriatura( Criatura c, int cant) {
+		GeneradorDePosicionInicial generador = new GeneradorDePosicionInicial(this, c, cant);
 		generador.posicionarCriatura();
 	}
 	

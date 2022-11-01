@@ -16,6 +16,7 @@ public class HiloMovimiento extends Thread {
 	public void run() { 
 		while(execute) {
 			this.juego.mover();
+			this.juego.getGui().repaint();
 			try {
 				Thread.sleep(180);
 			} catch (InterruptedException e) {e.printStackTrace();}

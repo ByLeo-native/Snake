@@ -15,21 +15,6 @@ public class PanelJuego extends JPanel {
 	protected final String dir = "src/Sprites/";
 
 	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					GUI frame = new GUI();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-	/**
 	 * Create the frame.
 	 */
 	public PanelJuego(GUI v){
@@ -42,6 +27,10 @@ public class PanelJuego extends JPanel {
 		return this;
 	}
 	
+	public void iniciar() {
+		this.miJuego.iniciarPartida();
+	}
+	
 	public void finalizar(){
 		ventana.getInicio().juegoFinalizado();
 	}
@@ -51,7 +40,6 @@ public class PanelJuego extends JPanel {
 			this.miJuego = new Juego(this);
 			panelLateral = new PanelLateral(AnchoVentana,AltoVentana,this);
 			this.add(panelLateral);
-			this.miJuego.iniciarPartida();
 		}
 	}
 	public void cambiar(JPanel panel){

@@ -26,7 +26,10 @@ public class Juego {
 	}
 	
 	public void iniciarPartida() {
+		this.contador = new Contador(this);
+		
 		hilo = new HiloMovimiento(this);
+		hilo.run();
 	}
 	
 	public void finalizarPartida() {
@@ -40,6 +43,10 @@ public class Juego {
 	
 	public GUI getMiInterfaz() {
 		return this.pnJuego.getVentana();
+	}
+	
+	public PanelJuego getGui() {
+		return this.pnJuego;
 	}
 
 	public void doblar(int tecla) {
@@ -62,7 +69,7 @@ public class Juego {
 	}
 
 	public void setTiempo(String time) { //Delegar� el problema a la GUI
-		this.pnJuego.getVentana().actualizarTimer(time);
+		//this.pnJuego.getVentana().actualizarTimer(time);
 	}
 
 }

@@ -21,6 +21,7 @@ public class Nivel {
 		this.juego = j;
 		this.indice = i;
 		this.miTablero = new Tablero(this);
+		this.juego.getGui().getPanelPrincipal().add(this.miTablero.getTableroGrafico());
 	}
 	
 	public Celda[][] generarNivel() {
