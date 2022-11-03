@@ -9,4 +9,7 @@ public abstract class PowerUp extends Consumible {
 		super(x, y, dx, dy, t, p, b);
 	}
 
+	protected void seConsumio() {
+		this.miTablero.seAniadioPowerUp();
+	}
 }

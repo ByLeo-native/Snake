@@ -29,7 +29,7 @@ public class PanelLateral extends JPanel{
 		this.setBounds( 9*AnchoVentana/12, 0, 3*AnchoVentana/12, AltoVentana);
 		
 		this.armarPanel();
-		this.backButton();
+		//this.backButton();
 
 	}
 	

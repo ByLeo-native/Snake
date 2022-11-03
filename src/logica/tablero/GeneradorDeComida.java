@@ -20,11 +20,11 @@ public class GeneradorDeComida extends GeneradorDeConsumible {
 		Consumible consumibleARetornar = null;
 		int rngconsumibleARetornar = (int)(Math.random()*100);
 		
-		if (rngconsumibleARetornar < 31) consumibleARetornar = new Cupcake( row, col, this.miTablero);
-		else if (rngconsumibleARetornar < 55) consumibleARetornar = new Nugget(row, col, this.miTablero);
-		else if (rngconsumibleARetornar < 75) consumibleARetornar = new PapasFritas(row, col, this.miTablero);
-		else if (rngconsumibleARetornar < 90) consumibleARetornar = new Taco(row, col, this.miTablero);
-		else if (rngconsumibleARetornar < 101) consumibleARetornar = new Hamburguesa(row, col, this.miTablero);
+		if (rngconsumibleARetornar < 31) consumibleARetornar = new Cupcake( col, row, this.miTablero);
+		else if (rngconsumibleARetornar < 55) consumibleARetornar = new Nugget( col, row, this.miTablero);
+		else if (rngconsumibleARetornar < 75) consumibleARetornar = new PapasFritas( col, row, this.miTablero);
+		else if (rngconsumibleARetornar < 90) consumibleARetornar = new Taco( col, row, this.miTablero);
+		else if (rngconsumibleARetornar < 101) consumibleARetornar = new Hamburguesa( col, row, this.miTablero);
 		
 		System.out.println("Comida En ("+col+", "+row+")");
 		

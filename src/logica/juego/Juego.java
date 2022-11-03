@@ -27,7 +27,7 @@ public class Juego {
 	}
 	
 	public void iniciarPartida() {
-		//this.contador = new Contador(this);
+		this.contador = new Contador(this);
 		
 		this.hiloMovimiento = new HiloMovimiento(this);
 		this.hilo = new Thread(this.hiloMovimiento);
@@ -36,6 +36,7 @@ public class Juego {
 	
 	public void finalizarPartida() {
 		this.contador.stop();
+		this.hiloMovimiento.detener();
 		this.miJugador.definirTiempoJugado(contador.getMinutos(), contador.getSegundos());
 	}
 	

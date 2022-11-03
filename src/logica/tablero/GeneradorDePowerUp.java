@@ -18,9 +18,9 @@ public class GeneradorDePowerUp extends GeneradorDeConsumible {
 		Consumible consumibleARetornar = null;
 		int rngconsumibleARetornar = (int)(Math.random()*100);
 		
-		if (rngconsumibleARetornar < 50) consumibleARetornar = new Cafe( row, col, this.miTablero);
-		else if (rngconsumibleARetornar < 85) consumibleARetornar = new CocaCola(row, col, this.miTablero);
-		else if (rngconsumibleARetornar < 101) consumibleARetornar = new Cerveza(row, col, this.miTablero);
+		if (rngconsumibleARetornar < 50) consumibleARetornar = new Cafe( col, row, this.miTablero);
+		else if (rngconsumibleARetornar < 85) consumibleARetornar = new CocaCola( col, row, this.miTablero);
+		else if (rngconsumibleARetornar < 101) consumibleARetornar = new Cerveza( col, row, this.miTablero);
 		
 		
 		System.out.println("PowerUp En ("+col+", "+row+")");

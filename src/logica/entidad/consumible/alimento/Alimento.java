@@ -8,5 +8,9 @@ public abstract class Alimento extends Consumible {
 	public Alimento(int x, int y, int dx, int dy, Tablero t, int p, int b) {
 		super(x, y, dx, dy, t, p, b);
 	}
+	
+	protected void seConsumio() {
+		this.miTablero.seAniadioComida();
+	}
 
 }

@@ -28,10 +28,14 @@ public abstract class Consumible extends Entidad {
 		Jugador j = c.getJugador();
 		j.setPuntaje( j.getPuntaje() + this.puntaje );
 		c.debeCrecer(bloques);
+		this.miTablero.seConsumioConsumible(this);
+		this.seConsumio();
+		
 	}
 	
 	public boolean esChocable() {
 		return false;
 	}
 
+	protected abstract void seConsumio();
 }

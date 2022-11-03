@@ -7,6 +7,9 @@ import java.util.List;
 import grafico.tableroGrafico.TableroGrafico;
 import logica.celda.Celda;
 import logica.entidad.Entidad;
+import logica.entidad.consumible.Consumible;
+import logica.entidad.consumible.alimento.Alimento;
+import logica.entidad.consumible.powerUp.PowerUp;
 import logica.entidad.criatura.Criatura;
 import logica.nivel.Nivel;
 
@@ -20,7 +23,7 @@ public class Tablero {
 
 	public Tablero(Nivel n) {
 		this.miNivel = n;
-		this.miGrilla = n.generarNivel();
+		this.miGrilla = n.generarNivel(this);
 		this.hayComida = false;
 		this.hayPowerUp = false;
 		this.miCriatura = new Criatura(this);
@@ -59,16 +62,10 @@ public class Tablero {
 		}
 	}
 	
-	public boolean hayComida() {
-		return this.hayComida;
-	}
-	
-	public void seAniadioComida() {
-		this.hayComida = true;
-	}
-	
-	public void seConsumioComida() {
-		this.hayComida = false;
+	public void seConsumioConsumible(Consumible c) {
+		Celda celda = this.miGrilla[c.getPosY()][c.getPosX()];
+		celda.removerEntidad(c);
+		this.map.actualizarImagenDeEntidadGrafica( c.getEntidadGrafica(), celda.getUltimaEntidad().getEntidadGrafica());
 	}
 	
 	public boolean hayPowerUp() {
@@ -83,6 +80,19 @@ public class Tablero {
 		this.hayPowerUp = false;
 	}
 	
+	public void seConsumioAlimento() {
+		this.hayComida = false;
+	}
+	
+	public boolean hayComida() {
+		return this.hayComida;
+	}
+	
+	public void seAniadioComida() {
+		this.hayComida = true;
+	}
+	
+	
 	/**
 	 * Aplica los efectos en la criatura de las entidades con las que se encuentra en la siguiente celda.
 	 * @param i entero positivo de la posicion en x (columna) de la celda.
@@ -91,12 +101,16 @@ public class Tablero {
 	public void avisoDeMovimiento(int i, int j, Criatura c) {
 		Celda siguienteCelda = this.miGrilla[j][i];
 		Iterator<Entidad> iterator = siguienteCelda.getIterator();
-		Entidad e = iterator.hasNext() ? iterator.next() : null;
+		Entidad e = null;
 		
 		while(iterator.hasNext()) {
-			e.afectar(c);
 			e = iterator.next();
+			e.afectar(c);
 		}
+	}
+	
+	public void avisoDeFinDeJuego() {
+		this.miNivel.getJuego().finalizarPartida();
 	}
 	
 	public void cambioDeCelda(int posXVieja, int posYVieja, int posXNueva, int posYNueva, Entidad e) {

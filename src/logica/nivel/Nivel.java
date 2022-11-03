@@ -24,7 +24,7 @@ public class Nivel {
 		this.juego.getGui().getPanelPrincipal().add(this.miTablero.getTableroGrafico());
 	}
 	
-	public Celda[][] generarNivel() {
+	public Celda[][] generarNivel(Tablero tab) {
 		Celda[][] nivelGenerado = new Celda[20][20];
 		String ruta = "src/Assets/Nivel_"+this.indice+".txt";
 		BufferedReader lector;
@@ -42,11 +42,11 @@ public class Nivel {
 					}
 					
 					if(caracterAInsertar=='P') {
-						e = new Pared(columna, fila, this.miTablero); 
+						e = new Pared(columna, fila, tab); 
 						celda.agregarEntidad(e);
 					} //Genera espacio vacío
 					else {
-						e = new Cesped(columna, fila, this.miTablero);
+						e = new Cesped(columna, fila, tab);
 						celda.agregarEntidad(e);
 					}
 					nivelGenerado[fila][columna] = celda;

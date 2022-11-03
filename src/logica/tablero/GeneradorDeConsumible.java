@@ -22,7 +22,7 @@ public abstract class GeneradorDeConsumible {
 				row = (int)(Math.random() * 19); 
 				col = (int)(Math.random() * 19); 
 				
-				if(!grilla[row][col].getPrimeraEntidad().esChocable()) {
+				if(!grilla[row][col].getUltimaEntidad().esChocable()) {
 					
 					Consumible morfi = this.obtenerConsumibleRandom(row, col, grilla);
 					

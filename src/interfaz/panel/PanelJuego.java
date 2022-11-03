@@ -22,6 +22,7 @@ public class PanelJuego extends JPanel {
 		AnchoVentana= 1200; AltoVentana= 720;
 		setBounds(0, 0, AnchoVentana, AltoVentana);
 		this.setLayout(null);
+		this.setFocusable(true);
 	}
 	public JPanel getPanelPrincipal(){
 		return this;
@@ -40,7 +41,6 @@ public class PanelJuego extends JPanel {
 			this.miJuego = new Juego(this);
 			panelLateral = new PanelLateral(AnchoVentana,AltoVentana,this);
 			this.add(panelLateral);
-			this.miJuego.iniciarPartida();
 		}
 	}
 	public void cambiar(JPanel panel){

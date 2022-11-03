@@ -26,6 +26,7 @@ public class PanelInicio extends JPanel{
 		fondo.setBounds(0,0, v.getAncho(),v.getAlto());
 		fondo.setVisible(true);
 		
+		this.setFocusable(true);
 		armarBotones();
 		add(fondo);
 	}
@@ -74,9 +75,9 @@ public class PanelInicio extends JPanel{
 					}
 					g = new PanelJuego(ventana);
 					g.ejecutar();
-					ventana.cambiarJuego(g);
+					//ventana.cambiarJuego(g);
 					cambiar(g);
-					//g.iniciar();
+					g.iniciar();
 					break;
 				}
 				case("Continuar"):{

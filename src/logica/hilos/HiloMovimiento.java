@@ -23,4 +23,8 @@ public class HiloMovimiento implements Runnable {
 			this.juego.permitirDoblar();
 		}
 	}
+	
+	public void detener() {
+		this.execute = false;
+	}
 }

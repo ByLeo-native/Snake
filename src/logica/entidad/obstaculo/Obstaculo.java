@@ -12,6 +12,7 @@ public abstract class Obstaculo extends Entidad {
 
 	public void afectar(Criatura c) {
 		c.morir();
+		this.miTablero.avisoDeFinDeJuego();
 	}
 	
 	public boolean esChocable() {
