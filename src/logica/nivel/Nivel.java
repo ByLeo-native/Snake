@@ -43,11 +43,11 @@ public class Nivel {
 					
 					if(caracterAInsertar=='P') {
 						e = new Pared(columna, fila, tab); 
-						celda.agregarEntidad(e);
+						celda.agregar(e);
 					} //Genera espacio vacío
 					else {
 						e = new Cesped(columna, fila, tab);
-						celda.agregarEntidad(e);
+						celda.agregar(e);
 					}
 					nivelGenerado[fila][columna] = celda;
 				}

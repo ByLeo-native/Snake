@@ -48,7 +48,7 @@ public class Criatura {
 	public void crecer(int x, int y) {
 		Cuerpo c = new Cuerpo( x, y, miTablero);
 		this.cuerpo.add(c);
-		this.miTablero.getGrilla()[y][x].agregarEntidad(c);
+		this.miTablero.getGrilla()[y][x].agregar(c);
 		this.cantDeIncrementos--;
 	}
 	
@@ -85,10 +85,16 @@ public class Criatura {
 					sentidoV = 0;
 				}
 				
+				int celdaDespuesDeCambiarEnX;
+				int celdaDespuesDeCambiarEnY;
 				
-				int celdaDespuesDeCambiarEnX = Math.floorDiv(posicionNuevaEnX + sentidoH*cuerpoActual.getEntidadGrafica().getWidth(), cuerpoActual.getEntidadGrafica().getWidthUnaCelda());//Redondeo hacia abajo;
-				int celdaDespuesDeCambiarEnY = Math.floorDiv(posicionNuevaEnY + sentidoV*cuerpoActual.getEntidadGrafica().getHeight(), cuerpoActual.getEntidadGrafica().getHeightUnaCelda());//Redondeo hacia abajo;
-				
+				if( (posicionNuevaEnX + sentidoH*cuerpoActual.getEntidadGrafica().getWidth()%cuerpoActual.getEntidadGrafica().getWidthUnaCelda() == 0) || (posicionNuevaEnY + sentidoV*cuerpoActual.getEntidadGrafica().getHeight()%cuerpoActual.getEntidadGrafica().getHeightUnaCelda()== 0 )) {
+					celdaDespuesDeCambiarEnX = celdaAntesDeCambiarEnX;
+					celdaDespuesDeCambiarEnY = celdaAntesDeCambiarEnY;
+				} else {
+					celdaDespuesDeCambiarEnX = Math.floorDiv(posicionNuevaEnX + sentidoH*cuerpoActual.getEntidadGrafica().getWidth(), cuerpoActual.getEntidadGrafica().getWidthUnaCelda());//Redondeo hacia abajo;
+					celdaDespuesDeCambiarEnY = Math.floorDiv(posicionNuevaEnY + sentidoV*cuerpoActual.getEntidadGrafica().getHeight(), cuerpoActual.getEntidadGrafica().getHeightUnaCelda());//Redondeo hacia abajo;
+				}
 				
 				if(celdaAntesDeCambiarEnX != celdaDespuesDeCambiarEnX || celdaAntesDeCambiarEnY != celdaDespuesDeCambiarEnY) {
 					if(cuerpoActual.equals(this.getCuerpoEnPosicion(0))) {

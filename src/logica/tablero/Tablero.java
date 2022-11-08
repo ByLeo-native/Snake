@@ -64,7 +64,7 @@ public class Tablero {
 	
 	public void seConsumioConsumible(Consumible c) {
 		Celda celda = this.miGrilla[c.getPosY()][c.getPosX()];
-		celda.removerEntidad(c);
+		celda.remover(c);
 		this.map.actualizarImagenDeEntidadGrafica( c.getEntidadGrafica(), celda.getUltimaEntidad().getEntidadGrafica());
 	}
 	
@@ -114,8 +114,8 @@ public class Tablero {
 	}
 	
 	public void cambioDeCelda(int posXVieja, int posYVieja, int posXNueva, int posYNueva, Entidad e) {
-		this.miGrilla[posYVieja][posXVieja].removerEntidad(e);
-		this.miGrilla[posYNueva][posXNueva].agregarEntidad(e);
+		this.miGrilla[posYVieja][posXVieja].remover(e);
+		this.miGrilla[posYNueva][posXNueva].agregar(e);
 	}
 
 }

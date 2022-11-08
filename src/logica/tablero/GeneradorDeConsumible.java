@@ -26,7 +26,7 @@ public abstract class GeneradorDeConsumible {
 					
 					Consumible morfi = this.obtenerConsumibleRandom(row, col, grilla);
 					
-					grilla[row][col].agregarEntidad(morfi);
+					grilla[row][col].agregar(morfi);
 					this.seAniadioConsumible();
 			}
 		}

@@ -15,12 +15,12 @@ public class Celda {
 		this.entidades = new ArrayList<Entidad>();
 	}
 	
-	public void agregarEntidad(Entidad e) {
+	public void agregar(Entidad e) {
 		int indice = this.entidades.size();
 		this.entidades.add( indice, e);
 	}
 	
-	public void removerEntidad(Entidad e) {
+	public void remover(Entidad e) {
 		this.entidades.remove(e);
 	}
 	
